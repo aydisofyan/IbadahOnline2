@@ -1,6 +1,6 @@
+
 const Images = {
-    bg: require('./bg.jpg'),
-    num_bg: require('./num_bg.png'),
+    Splash : require('./Splash.png')
 }
 
-export default Images;
+export default Images; 

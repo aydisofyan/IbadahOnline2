@@ -6,8 +6,8 @@ import axios from 'axios';
 
 type Ayat = {
   nomor: number;
-  teks_arab: string;
-  teks_arti: string;
+  ar: string;
+  idn: string;
 };
 
 type SurahDetail = {
@@ -51,10 +51,10 @@ export default function SurahDetailScreen({ route }: Props) {
       renderItem={({ item }) => (
         <View style={styles.item}>
           <View style={styles.ayatHeader}>
-            {/* <Text style={styles.ayatNumber}>{item.nomor}</Text> */}
-            <Text style={styles.arab}>{item.teks_arab}</Text>
+            { <Text style={styles.ayatNumber}>{item.nomor}</Text> }
+            <Text style={styles.arab}>{item.ar}</Text>
           </View>
-          <Text style={styles.translation}>{item.teks_arti}</Text>
+          <Text style={styles.translation}>{item.idn}</Text>
         </View>
       )}
     />

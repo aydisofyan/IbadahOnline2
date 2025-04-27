@@ -2,9 +2,13 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   item: {
-    // Styling item surah list
+    padding: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    backgroundColor: '#28184D',
   },
   itemText: {
-    // Styling text item
+    fontSize: 18,
+    color: '#34495e',
   },
 });

@@ -11,7 +11,8 @@ type HomeScreenProps = {
 export default function HomeScreen({ navigation }: HomeScreenProps) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Simple Quran App</Text>
+      <Text style={styles.title}>QURAN</Text>
+      <Text style={styles.title}>APP</Text>
       <Button
         title="Lihat Daftar Surah"
         onPress={() => navigation.navigate('SurahList')}

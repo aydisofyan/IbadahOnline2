@@ -1,44 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList } from 'react-native';
-import { RouteProp } from '@react-navigation/native';
-import { RootStackParamList } from '../App';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { styles } from '../assets/styles/detailstyles';
 import axios from 'axios';
 
 type Ayat = {
-  nomor: string;  // pakai string, karena key object
-  ar: string;
-  idn: string;
+  nomor: number;
+  teks_arab: string;
+  teks_arti: string;
 };
 
 type SurahDetail = {
   nama_latin: string;
   arti: string;
-  ayat: { [key: string]: Ayat };  // ini object dengan dynamic key
+  ayat: Ayat[];
 };
 
-type SurahDetailScreenProps = {
-  route: RouteProp<RootStackParamList, 'SurahDetail'>;
+type RootStackParamList = {
+  Home: undefined;
+  SurahList: undefined;
+  SurahDetail: { surahId: number };
 };
 
-export default function SurahDetailScreen({ route }: SurahDetailScreenProps) {
+type Props = NativeStackScreenProps<RootStackParamList, 'SurahDetail'>;
+
+export default function SurahDetailScreen({ route }: Props) {
   const { surahId } = route.params;
   const [surahDetail, setSurahDetail] = useState<SurahDetail | null>(null);
-  const [ayatArray, setAyatArray] = useState<Ayat[]>([]);
 
   useEffect(() => {
     axios.get<SurahDetail>(`https://equran.id/api/surat/${surahId}`)
-      .then(response => {
-        setSurahDetail(response.data);
-
-        // Konversi object ayat ke array
-        const ayatList = Object.keys(response.data.ayat).map((key) => ({
-          nomor: key,
-          ar: response.data.ayat[key].ar,
-          idn: response.data.ayat[key].idn
-        }));
-        setAyatArray(ayatList);
-      })
+      .then(response => setSurahDetail(response.data))
       .catch(error => console.error(error));
   }, [surahId]);
 
@@ -54,12 +46,15 @@ export default function SurahDetailScreen({ route }: SurahDetailScreenProps) {
           <Text style={styles.subtitle}>{surahDetail.arti}</Text>
         </View>
       )}
-      data={ayatArray}
-      keyExtractor={(item) => item.nomor}
+      data={surahDetail.ayat}
+      keyExtractor={(item) => item.nomor.toString()}
       renderItem={({ item }) => (
         <View style={styles.item}>
-          <Text style={styles.arab}>{item.ar}</Text>
-          <Text style={styles.translation}>{item.idn}</Text>
+          <View style={styles.ayatHeader}>
+            {/* <Text style={styles.ayatNumber}>{item.nomor}</Text> */}
+            <Text style={styles.arab}>{item.teks_arab}</Text>
+          </View>
+          <Text style={styles.translation}>{item.teks_arti}</Text>
         </View>
       )}
     />

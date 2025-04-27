@@ -2,11 +2,16 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor : 'purpel',
     flex: 1,
-    
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f8f8',
+    padding: 20,
   },
   title: {
-    // Styling title Home screen
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: '#2c3e50',
   },
 });
